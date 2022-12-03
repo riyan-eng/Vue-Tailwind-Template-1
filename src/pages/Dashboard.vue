@@ -1,0 +1,3 @@
+<template>
+  Ini dash
+</template>
