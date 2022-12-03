@@ -17,6 +17,10 @@ const routes = [
     path: "/text",
     component: () => import("../pages/Text.vue"),
   },
+  {
+    path: "/data_table",
+    component: () => import("../pages/DataTable.vue"),
+  },
 ];
 
 export default createRouter({

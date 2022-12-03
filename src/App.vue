@@ -33,14 +33,14 @@ export default {
         active: false,
       },
       {
-        menuName: 'test',
-        menuPath: '/test',
+        menuName: 'data table',
+        menuPath: '/data_table',
         menuIcon: 'BookOpenIcon',
         active: false,
       },
       {
         menuName: 'test 2',
-        menuPath: '/test2',
+        menuPath: '/text',
         menuIcon: 'BookOpenIcon',
         active: false,
       },
