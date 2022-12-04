@@ -50,6 +50,7 @@ tr:nth-child(even) {
 import { computed, ref, reactive } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid'
 import { getTodo } from '../service/todo'
+import axios from 'axios'
 
 // data
 const page = ref(1)
@@ -99,11 +100,6 @@ function selectPage() {
     return 'halo'
 }
 
-async function fetchTasks() {
-    const res = await fetch('https://dummyjson.com/todos?limit=3&skip=10')
-    const data = await res.json()
-    return data
-}
 
 // fetch('https://dummyjson.com/todos?limit=3&skip=10')
 //     .then(res => res.json())
