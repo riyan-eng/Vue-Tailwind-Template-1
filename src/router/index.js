@@ -21,6 +21,10 @@ const routes = [
     path: "/data_table",
     component: () => import("../pages/DataTable.vue"),
   },
+  {
+    path: "/crud",
+    component: () => import("../pages/Crud.vue"),
+  },
 ];
 
 export default createRouter({

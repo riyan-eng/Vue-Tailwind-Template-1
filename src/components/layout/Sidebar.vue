@@ -5,7 +5,7 @@
         <aside id="scroll-bar-1" style="border-right: solid 1px rgba(8, 145, 178, 0.1)"
           :class="isShow ? 'w-64 bg-white h-screen fixed overflow-auto' : 'w-64 bg-white h-screen sticky overflow-auto' && expand ? 'w-64' : 'w-18'"
           aria-label="Sidebar">
-          <div class=" mt-12 py-2">
+          <div class="mt-12 py-2">
             <div v-for="menu of listMenu">
               <div class="flex flex-col text-left px-3" style="padding-bottom: 2px;">
                 <router-link :to="menu.menuPath"

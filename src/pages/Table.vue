@@ -98,8 +98,8 @@
         </div>
     </div>
     <div>
-        <!-- page aktif: {{ activePage }}
-        per page: {{ perPage }} -->
+        <!-- page aktif: {{ activePage }} -->
+        per page: {{ perPage }}
         offset: {{ compOffset }}
     </div>
     <!-- <div>{{ compData }}</div> -->
@@ -117,10 +117,10 @@ export default {
             perPage: 10,
             totalPage: 0,
             offset: 0,
-            totalData: 0
+            totalData: 30
         }
     },
-    
+
     computed: {
         pagination() {
             this.listPages = []
@@ -143,7 +143,10 @@ export default {
             return this.todos
         }
     },
-
+    created() {
+        // this.getTotal()
+        this.fetchData(this.offset, this.perPage)
+    },
     methods: {
         selectPage(page) {
             this.activePage = page
@@ -151,29 +154,23 @@ export default {
             console.log(this.perPage)
             this.fetchData(this.offset, this.perPage)
         },
-        fetchData(offset, perPage){
+        fetchData(offset, perPage) {
             axios.get(`http://localhost:3000/todos?_start=${offset}&_limit=${perPage}`)
                 .then(response => {
                     // console.log(response)
                     this.todos = response.data
                 })
-        }
+        },
+        // getTotal() {
+        //     axios.get('http://localhost:3000/todos')
+        //         .then(response => {
+        //             // console.log(response.data.length)
+        //             this.totalData = response.data.length
+        //         })
+        // }
     },
 
-    mounted() {
-        axios.get('http://localhost:3000/todos')
-            .then(response => {
-                // console.log(response.data.length)
-                this.totalData = response.data.length
-            })
 
-        axios.get(`http://localhost:3000/todos?_start=${this.offset}&_limit=${this.perPage}`)
-            .then(response => {
-                // console.log(response)
-                this.todos = response.data
-            })
-    },
-    
     // offset = page * itemsPerPage + 1
 
 }

@@ -39,8 +39,8 @@ export default {
         active: false,
       },
       {
-        menuName: 'test 2',
-        menuPath: '/text',
+        menuName: 'crud',
+        menuPath: '/crud',
         menuIcon: 'BookOpenIcon',
         active: false,
       },
@@ -77,29 +77,69 @@ export default {
 </script>
 
 <template>
-  <NavbarVue @emitOnExpand="onExpand" @emitOnOpen="onOpen" />
-  <div class="flex flex-row" @click="onClose">
-    <div :class="isShow ? '' : 'hidden md:flex'">
-      <SidebarVue :isShow="isShow" :listMenu="listMenu" :expand="expand" />
+  <div>
+    <NavbarVue @emitOnExpand="onExpand" @emitOnOpen="onOpen" />
+    <div class="flex flex-row bg-white h-screen" @click="onClose">
+      <div :class="isShow ? '' : 'hidden md:flex'">
+        <SidebarVue :isShow="isShow" :listMenu="listMenu" :expand="expand" />
+      </div>
+  
+      <div>
+        <main id="scroll-bar-2" class="h-screen overflow-auto mt-10">
+          <div class="p-4 flex flex-col justify-items-center">
+            <router-view>
+            </router-view>
+          </div>
+        </main>
+      </div>
     </div>
-    <div>
-      <main id="scroll-bar-2" class="h-screen overflow-auto ">
-        <div class="mt-12 p-4 flex flex-col justify-items-center">
-          <router-view>
-          </router-view>
-        </div>
-      </main>
-    </div>
-  </div>
 
-  <!-- <div class="grid grid-rows-3 grid-flow-col gap-4 min-h-screen">
-    <div class="col-span-3 bg-orange-400">02</div>
-    <div class="row-span-2 bg-blue-400">01</div>
-    <div class="row-span-2 bg-slate-400 col-span-2">
+  </div>
+  <!-- <div class="flex flex-col">
+    <div>01</div>
+    <div>02</div>
+    <div>03</div>
+  </div>
+  <div class="flex">
+    <aside class="h-screen sticky top-0">
+      <SidebarVue :isShow="isShow" :listMenu="listMenu" :expand="expand" />
+    </aside>
+
+    <main>
+      <router-view>
+      </router-view>
+    </main>
+  </div> -->
+
+  <!-- <div class="grid grid-rows-3 grid-flow-col h-screen">
+    <div class="col-span-3 bg-cyan-600 shadow-md sticky">
+      <header>
+        <NavbarVue @emitOnExpand="onExpand" @emitOnOpen="onOpen" />
+      </header>
+    </div>
+    <div class="row-span-2 bg-blue-400 w-64">
+      <aside class="sticky top-0">
+        <SidebarVue :isShow="isShow" :listMenu="listMenu" :expand="expand" />
+      </aside>
+    </div>
+    <div class="row-span-2 bg-slate-400 col-span-2 overflow-auto">
       <router-view>
       </router-view>
     </div>
   </div> -->
+
+  <!-- <div class="flex w-screen min-h-screen flex-col bg-slate-400 grow">
+    <div class="flex h-16 w-screen bg-red-400">Title</div>
+    <div class="flex h-auto w-screen flex-row grow">
+      <div class="flex w-64 bg-yellow-300">Nav</div>
+      <div class="flex w-full bg-blue-400">Content</div>
+    </div>
+    <div class="flex h-32 w-screen bg-green-400">Footer</div>
+  </div> -->
+
+
+
+
 </template>
 
 <style scoped>
