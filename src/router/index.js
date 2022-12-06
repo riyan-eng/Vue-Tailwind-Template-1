@@ -1,9 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PublicLayout from '../Public.vue'
 
 const routes = [
   {
     path: "/login",
-    component: () => import("../pages/Login.vue"),
+    component: PublicLayout,
+    children: [
+      {
+        path: "",
+        component: () => import("../pages/Login.vue"),
+      },
+    ],
   },
   {
     path: "/",

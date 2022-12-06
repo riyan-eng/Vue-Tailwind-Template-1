@@ -3,10 +3,11 @@ import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import NavbarVue from './components/layout/Navbar.vue'
 import SidebarVue from './components/layout/Sidebar.vue'
+import SideNav from './components/layout/SideNav.vue'
 
 export default {
   components: {
-    NavbarVue, SidebarVue
+    NavbarVue, SidebarVue, SideNav
   },
   setup() {
     const router = useRouter()
@@ -136,7 +137,7 @@ export default {
 
   <div id="app">
     <nav
-      class="fixed top-0 inset-x-0 z-50 h-16 text-white bg-gray-800 font-medium flex justify-between items-center shadow-lg">
+      class="fixed top-0 inset-x-0 z-50 h-16 text-white bg-cyan-600 font-medium flex justify-between items-center shadow-lg">
       <!-- Extract: MobileMenu Vue component -->
       <div class="w-16 h-16 flex justify-center items-center text-gray-600 sm:hidden">
         <button class="p-1 hover:text-white" :class="{ 'text-white': isMenuOpen }" @click="toggleMenu">
@@ -240,10 +241,10 @@ export default {
       </div>
     </nav>
 
-    <aside class="hidden pt-16 w-64 text-white bg-gray-700 fixed inset-y-0 overflow-x-hidden overflow-y-auto sm:block">
+    <aside class="hidden pt-16 w-64 text-white bg-white fixed inset-y-0 overflow-x-hidden overflow-y-auto sm:block" style="border-right: solid 1px rgba(8, 145, 178, 0.1)">
       <div class="p-4 min-h-full">
         <!-- Extract: user_info blade partial -->
-        <div class="px-6 pb-6 flex items-center border-b border-gray-100 sm:flex-col">
+        <!-- <div class="px-6 pb-6 flex items-center border-b border-gray-100 sm:flex-col">
           <div class="hidden px-3 text-white text-base rounded-full border sm:block">Username</div>
           <div
             class="mr-auto text-white flex-shrink-0 flex justify-center items-center rounded-full border-4 sm:mt-4 sm:mx-auto">
@@ -256,12 +257,12 @@ export default {
             <div class="text-white text-2xl sm:hidden">Username</div>
             <div class="text-yellow-500 text-xl sm:text-sm">10.000 BET</div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Extract: menu_items -->
         <div class="mt-4">
           <!-- TODO: add group here and group-hover to the shevron icon to show it only when the group is hovered -->
-          <a v-for="i in Array(20).keys()" href="#"
+          <!-- <a v-for="i in Array(8).keys()" href="#"
             class="px-10 py-2 flex items-center text-xl text-gray-100 hover:text-orange-500 sm:px-4 sm:text-base">
             <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 71">
               <path
@@ -273,19 +274,22 @@ export default {
             <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M9.3 8.7a1 1 0 011.4-1.4l4 4a1 1 0 010 1.4l-4 4a1 1 0 01-1.4-1.4l3.29-3.3-3.3-3.3z" />
             </svg>
-          </a>
+          </a> -->
+          <SideNav/>
         </div>
       </div>
     </aside>
 
     <main class="pt-16 sm:pl-64">
       <div class="p-4">
-        <h1 class="text-gray-700 text-xs uppercase tracking-wider">Content</h1>
+        <!-- <h1 class="text-gray-700 text-xs uppercase tracking-wider">Content</h1>
 
         <div v-for="i in Array(15).keys()"
           class="mt-4 p-4 bg-white rounded shadow font-semibold text-center hover:shadow-md">
           Match #{{ i }}
-        </div>
+        </div> -->
+
+        <router-view></router-view>
       </div>
     </main>
   </div>
