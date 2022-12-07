@@ -1,8 +1,8 @@
 <template>
-    <router-view></router-view>
+    <slot></slot>
 </template>
 <script>
-export default {
+export default{
     name: 'PublicLayout'
 }
 </script>

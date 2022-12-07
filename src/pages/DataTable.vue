@@ -18,35 +18,39 @@ tr:nth-child(even) {
 </style>
 
 <template>
-    <table class="table-fixed">
-        <thead>
-            <tr>
-                <th width="40">#</th>
-                <th v-for="(col, ind) of columns" :key="ind">
-                    <div class="flex justify-between">
-                        <div>{{ col.text }}</div>
-                        <div>
-                            <ChevronUpIcon @click="sort = { column: col.name, by: 'desc' }"
-                                class="h-3 w-3 text-blue-500" />
-                            <ChevronDownIcon class="h-3 w-3 text-blue-500" />
+    <PrivateLayout>
+        <table class="table-fixed">
+            <thead>
+                <tr>
+                    <th width="40">#</th>
+                    <th v-for="(col, ind) of columns" :key="ind">
+                        <div class="flex justify-between">
+                            <div>{{ col.text }}</div>
+                            <div>
+                                <ChevronUpIcon @click="sort = { column: col.name, by: 'desc' }"
+                                    class="h-3 w-3 text-blue-500" />
+                                <ChevronDownIcon class="h-3 w-3 text-blue-500" />
+                            </div>
                         </div>
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(entry, ind) of filteredEntries" :key="ind">
-                <td>{{ entry.id }}</td>
-                <td>{{ entry.userId }}</td>
-                <td>{{ entry.title }}</td>
-                <td>{{ entry.completed }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ selectPage() }}
-    {{ data }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(entry, ind) of filteredEntries" :key="ind">
+                    <td>{{ entry.id }}</td>
+                    <td>{{ entry.userId }}</td>
+                    <td>{{ entry.title }}</td>
+                    <td>{{ entry.completed }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{ selectPage() }}
+        {{ data }}
+
+    </PrivateLayout>
 </template>
 <script setup>
+import PrivateLayout from '../components/layout/PrivateLayout.vue';
 import { computed, ref, reactive } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid'
 import { getTodo } from '../service/todo'

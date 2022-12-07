@@ -36,8 +36,8 @@ export default {
                     active: false,
                 },
                 {
-                    menuName: 'data table',
-                    menuPath: '/data_table',
+                    menuName: 'wallet',
+                    menuPath: '/wallet',
                     menuIcon: 'BookOpenIcon',
                     active: false,
                 },
@@ -47,6 +47,7 @@ export default {
                     menuIcon: 'BookOpenIcon',
                     active: false,
                 },
+                
             ]
         }
     }

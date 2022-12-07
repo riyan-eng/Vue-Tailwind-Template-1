@@ -1,20 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import PublicLayout from '../Public.vue'
+import PrivateLayout from "../components/layout/PrivateLayout.vue"
 
 const routes = [
   {
     path: "/login",
-    component: PublicLayout,
-    children: [
-      {
-        path: "",
-        component: () => import("../pages/Login.vue"),
-      },
-    ],
+    component: () => import("../pages/Login.vue"),
   },
   {
     path: "/",
     component: () => import("../pages/Dashboard.vue"),
+    meta: { layout: PrivateLayout }
   },
   {
     path: "/table",
@@ -25,8 +20,8 @@ const routes = [
     component: () => import("../pages/Text.vue"),
   },
   {
-    path: "/data_table",
-    component: () => import("../pages/DataTable.vue"),
+    path: "/wallet",
+    component: () => import("../pages/Wallet.vue"),
   },
   {
     path: "/crud",
