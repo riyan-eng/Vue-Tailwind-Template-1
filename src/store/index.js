@@ -43,11 +43,17 @@ export default createStore({
     },
   },
   actions: {
-    async signIn(context, payload) {
+    async signInRemember(context, payload) {
       context.commit("SET_LOGIN", true);
       context.commit("SET_USER", payload);
       context.commit("SET_ACCESS_TOKEN", payload.accessToken);
       context.commit("SET_REFRESH_TOKEN", payload.refreshToken);
+    },
+    async signInNoRemember(context, payload) {
+      context.commit("SET_LOGIN", true);
+      context.commit("SET_USER", payload);
+      context.commit("SET_ACCESS_TOKEN", payload.accessToken);
+      context.commit("SET_REFRESH_TOKEN", null);
     },
     async signOut(context) {
       context.commit("SET_LOGIN", false);

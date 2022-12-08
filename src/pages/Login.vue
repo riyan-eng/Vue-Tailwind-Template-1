@@ -63,7 +63,7 @@
 
                             <div class="flex justify-between items-center mb-6">
                                 <div class="form-group form-check">
-                                    <input type="checkbox"
+                                    <input type="checkbox" v-model="remember"
                                         class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                         id="exampleCheck2" />
                                     <label class="form-check-label inline-block text-gray-800"
@@ -105,18 +105,25 @@ export default {
             user: {
                 username: 'user1',
                 password: 'test'
-            }
+            },
+            remember:false
         }
     },
     methods: {
         async onSubmit() {
-            console.log(this.user)
+            console.log(this.remember)
             const { data } = await axios.post('auth/login', {
                 "userName": this.user.username,
                 "userPassword": this.user.password
             })
             // axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`
-            this.$store.dispatch('signIn', data.data)
+            
+            if(this.remember === true){
+                this.$store.dispatch('signInRemember', data.data)
+            }else{
+                this.$store.dispatch('signInNoRemember', data.data)
+            }
+
             this.user.username = ''
             this.user.password = ''
 
