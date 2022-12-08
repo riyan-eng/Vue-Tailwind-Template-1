@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
-import PrivateLayout from "../components/layout/PrivateLayout.vue"
+import store from "../store";
 
 const routes = [
   {
     path: "/login",
     component: () => import("../pages/Login.vue"),
+    name: "Login",
   },
   {
     path: "/",
     component: () => import("../pages/Dashboard.vue"),
-    meta: { layout: PrivateLayout }
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/table",
@@ -29,7 +32,21 @@ const routes = [
   },
 ];
 
-export default createRouter({
+const router = createRouter({
   routes,
   history: createWebHistory(),
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!store.getters.user.isLogin) {
+      next({ name: "Login" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

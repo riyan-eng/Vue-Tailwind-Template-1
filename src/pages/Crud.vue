@@ -52,7 +52,7 @@
 <script>
 import axios from "axios";
 import { TrashIcon, PencilSquareIcon, EyeIcon } from "@heroicons/vue/24/outline"
-import PrivateLayout from '../components/layout/PrivateLayout.vue';
+import PrivateLayout from '../layouts/PrivateLayout.vue';
 
 export default {
     components: {

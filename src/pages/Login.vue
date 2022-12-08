@@ -95,7 +95,7 @@
 
 <script>
 import axios from 'axios';
-import PublicLayout from '../components/layout/PublicLayout.vue';
+import PublicLayout from '../layouts/PublicLayout.vue';
 export default {
     components: {
         PublicLayout
@@ -114,11 +114,9 @@ export default {
             const { data } = await axios.post('auth/login', {
                 "userName": "user1",
                 "userPassword": "test"
-            }, {
-                withCredentials: true
             })
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`
-
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`
+            this.$store.dispatch('signIn', data.data)
             this.user.username = ''
             this.user.password = ''
 

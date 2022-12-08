@@ -318,7 +318,7 @@
     </PrivateLayout>
 </template>
 <script>
-import PrivateLayout from '../components/layout/PrivateLayout.vue';
+import PrivateLayout from '../layouts/PrivateLayout.vue';
 export default{
     components:{
         PrivateLayout

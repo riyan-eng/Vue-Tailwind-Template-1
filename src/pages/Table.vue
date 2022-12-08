@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import PrivateLayout from '../components/layout/PrivateLayout.vue';
+import PrivateLayout from '../layouts/PrivateLayout.vue';
 import { ref, reactive, computed } from 'vue'
 import axios from 'axios'
 export default {
