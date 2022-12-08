@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import { HomeIcon, InformationCircleIcon, BookOpenIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, InformationCircleIcon, BookOpenIcon, UserCircleIcon, UserIcon } from '@heroicons/vue/24/outline'
 
 export default {
     name: 'SideNav',
     components: {
-        HomeIcon, InformationCircleIcon, BookOpenIcon, UserCircleIcon
+        HomeIcon, InformationCircleIcon, BookOpenIcon, UserCircleIcon, UserIcon
     },
     data() {
         return {
@@ -45,6 +45,12 @@ export default {
                     menuName: 'crud',
                     menuPath: '/crud',
                     menuIcon: 'BookOpenIcon',
+                    active: false,
+                },
+                {
+                    menuName: 'profile',
+                    menuPath: '/profile',
+                    menuIcon: 'UserIcon',
                     active: false,
                 },
                 

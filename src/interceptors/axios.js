@@ -16,6 +16,8 @@ axios.interceptors.response.use(resp=>resp, async error => {
         if (status === 200){
             store.dispatch('updateAccessToken', data.data)
             return axios(error.config)
+        }else{
+            store.dispatch('signOut')
         }
     }
     refresh = false
