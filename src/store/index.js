@@ -20,6 +20,7 @@ export default createStore({
       isLogin: false,
       data: null,
       accessToken: null,
+      refreshToken: null
     },
   },
   getters: {
@@ -34,22 +35,28 @@ export default createStore({
     SET_USER(state, data) {
       state.user.data = data;
     },
-    SET_TOKEN(state, data) {
+    SET_ACCESS_TOKEN(state, data) {
       state.user.accessToken = data;
+    },
+    SET_REFRESH_TOKEN(state, data) {
+      state.user.refreshToken = data;
     },
   },
   actions: {
     async signIn(context, payload) {
       context.commit("SET_LOGIN", true);
       context.commit("SET_USER", payload);
-      context.commit("SET_TOKEN", payload.accessToken);
+      context.commit("SET_ACCESS_TOKEN", payload.accessToken);
+      context.commit("SET_REFRESH_TOKEN", payload.refreshToken);
     },
     async signOut(context) {
       context.commit("SET_LOGIN", false);
       context.commit("SET_USER", null);
+      context.commit("SET_ACCESS_TOKEN", null);
+      context.commit("SET_REFRESH_TOKEN", null);
     },
     async updateAccessToken(context, payload) {
-      context.commit("SET_TOKEN", payload.accessToken);
+      context.commit("SET_ACCESS_TOKEN", payload.accessToken);
     },
   },
 });

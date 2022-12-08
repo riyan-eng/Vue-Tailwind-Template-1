@@ -103,8 +103,8 @@ export default {
     data() {
         return {
             user: {
-                username: '',
-                password: ''
+                username: 'user1',
+                password: 'test'
             }
         }
     },
@@ -112,8 +112,8 @@ export default {
         async onSubmit() {
             console.log(this.user)
             const { data } = await axios.post('auth/login', {
-                "userName": "user1",
-                "userPassword": "test"
+                "userName": this.user.username,
+                "userPassword": this.user.password
             })
             // axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`
             this.$store.dispatch('signIn', data.data)

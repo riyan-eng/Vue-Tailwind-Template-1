@@ -17,18 +17,30 @@ const routes = [
   {
     path: "/table",
     component: () => import("../pages/Table.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/text",
     component: () => import("../pages/Text.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/wallet",
     component: () => import("../pages/Wallet.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/crud",
     component: () => import("../pages/Crud.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 

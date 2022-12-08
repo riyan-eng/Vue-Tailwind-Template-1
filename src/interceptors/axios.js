@@ -9,7 +9,7 @@ axios.interceptors.response.use(resp=>resp, async error => {
         refresh = true
         const {status, data} = await axios.get('/auth/token/refresh',{
             headers:{
-                'Authorization': `Bearer ${store.getters.user.data.refreshToken}`
+                'Authorization': `Bearer ${store.getters.user.refreshToken}`
             }
         })
 
@@ -19,6 +19,5 @@ axios.interceptors.response.use(resp=>resp, async error => {
         }
     }
     refresh = false
-    console.log(store.getters.user.data.refreshToken)
     return error
 })
