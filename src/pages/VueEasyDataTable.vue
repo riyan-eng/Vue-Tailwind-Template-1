@@ -6,7 +6,7 @@
         </button>
         <ModalInsertOne @emtToggleModalInsertOne="toggleModalInsertOne" :showModalInsertOne="showModalInsertOne"/>
         <ModalDeleteOne @emtToggleModalDeleteOne="toggleModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
-        <ModalUpdateOne @emtToggleModalUpdateOne="toggleModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :idItem="idItem"/>
+        <ModalUpdateOne @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
         <ModalFindOne @emtCloseModalFindOne="closeModalFindOne"  :showModalFindOne="showModalFindOne" :item="item"/>
         <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
             :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
@@ -86,8 +86,7 @@ export default {
         },
         toggleModalUpdateOne(id){
             this.showModalUpdateOne = !this.showModalUpdateOne
-            this.idItem = null
-            this.idItem = id
+            this.findOneTodo(id)
         },
         toggleModalFindOne(id){
             this.showModalFindOne = !this.showModalFindOne
@@ -95,6 +94,9 @@ export default {
         },
         closeModalFindOne(){
             this.showModalFindOne = !this.showModalFindOne
+        },
+        closeModalUpdateOne(){
+            this.showModalUpdateOne = !this.showModalUpdateOne
         }
     },
 }
