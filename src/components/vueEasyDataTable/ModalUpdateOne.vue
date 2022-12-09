@@ -8,23 +8,26 @@
                 </div>
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Detail
                 </h1>
-                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Owner
-                    Name</label>
-                <input id="name" v-model="item.todo"
-                    class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                    placeholder="James" />
-                
-                <div class="flex items-center mb-4">
-                    <input v-model="item.completed" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="completed" class="ml-2 text-gray-800 text-sm font-bold leading-tight tracking-normal">Completed</label>
-                </div>
-                <div class="flex items-center justify-start w-full">
-                    <button
-                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
-                    <button
-                        class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                        @click="closeModalUpdateOne">Cancel</button>
-                </div>
+                <form @submit.prevent="onSubmit">
+                    <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Owner
+                        Name</label>
+                    <input id="name" v-model="item.todo"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                        placeholder="James" />
+                    
+                    <div class="flex items-center mb-4">
+                        <input v-model="item.completed" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="completed" class="ml-2 text-gray-800 text-sm font-bold leading-tight tracking-normal">Completed</label>
+                    </div>
+                    <div class="flex items-center justify-start w-full">
+                        <button type="submit"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
+                        <button
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                            @click="closeModalUpdateOne">Cancel</button>
+                    </div>
+
+                </form>
                 <button
                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
                     @click="closeModalUpdateOne" aria-label="close modal" role="button">
@@ -50,11 +53,15 @@ export default {
     components:{
         PencilSquareIcon
     },
-    emits: ["emtCloseModalUpdateOne"],
+    emits: ["emtCloseModalUpdateOne", "emtSubmitUpdate"],
     props: ['showModalUpdateOne', 'item'],
     methods: {
         closeModalUpdateOne() {
             this.$emit('emtCloseModalUpdateOne')
+        },
+        onSubmit(){
+            this.$emit('emtSubmitUpdate', this.item)
+            this.closeModalUpdateOne()
         }
     }
 }

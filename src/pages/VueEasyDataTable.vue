@@ -6,7 +6,7 @@
         </button>
         <ModalInsertOne @emtToggleModalInsertOne="toggleModalInsertOne" :showModalInsertOne="showModalInsertOne"/>
         <ModalDeleteOne @emtToggleModalDeleteOne="toggleModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
-        <ModalUpdateOne @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
+        <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
         <ModalFindOne @emtCloseModalFindOne="closeModalFindOne"  :showModalFindOne="showModalFindOne" :item="item"/>
         <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
             :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
@@ -76,6 +76,15 @@ export default {
             const { data } = await axios.get(`http://localhost:3000/todos/${id}`)
             this.item = data
         },
+        async updateOneTodo(payload) {
+            const { status } = await axios.put(`http://localhost:3000/todos/${payload.id}`,{
+                todo: payload.todo,
+                completed: payload.completed
+            })
+            // this.item = data
+            console.log(status)
+            this.findTodo()
+        },
         toggleModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne;
         },
@@ -97,6 +106,9 @@ export default {
         },
         closeModalUpdateOne(){
             this.showModalUpdateOne = !this.showModalUpdateOne
+        },
+        onSubmitUpdate(payload){
+            this.updateOneTodo(payload)
         }
     },
 }

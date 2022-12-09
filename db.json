@@ -7,10 +7,9 @@
       "userId": 26
     },
     {
-      "id": 2,
       "todo": "Memorize the fifty states and their capitals",
-      "completed": false,
-      "userId": 48
+      "completed": true,
+      "id": 2
     },
     {
       "id": 3,
@@ -175,10 +174,9 @@
       "userId": 30
     },
     {
-      "id": 30,
-      "todo": "Take cat on a walk",
+      "todo": "Take cat on a street",
       "completed": false,
-      "userId": 15
+      "id": 30
     }
   ]
 }
