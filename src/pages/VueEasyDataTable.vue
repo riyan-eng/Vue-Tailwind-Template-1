@@ -82,7 +82,7 @@ export default {
                 completed: payload.completed
             })
             // this.item = data
-            console.log(status)
+            // console.log(status)
             this.findTodo()
         },
         toggleModalInsertOne() {
