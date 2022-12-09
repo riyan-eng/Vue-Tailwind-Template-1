@@ -16,6 +16,7 @@
     "secure-ls": "^1.2.6",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6",
+    "vue3-easy-data-table": "^1.5.21",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },

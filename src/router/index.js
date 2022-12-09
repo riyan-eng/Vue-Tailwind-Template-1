@@ -49,6 +49,13 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/easy_data_table",
+    component: () => import("../pages/VueEasyDataTable.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
 
 const router = createRouter({

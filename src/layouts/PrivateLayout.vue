@@ -125,9 +125,7 @@ export default {
             </div>
 
             <!-- Extract: Notifications Vue component -->
-            <div class="w-16 h-16 flex justify-center items-center text-gray-600 border-l border-gray-600">
-                <router-link to="/login">login</router-link>
-                <button @click="logout">Logout</button>
+            <div class="w-16 h-16 flex justify-center items-center text-gray-600 ">                
                 <button class="p-1 hover:text-white focus:text-white focus:outline-none"
                     :class="{ 'text-white': isNotificationsOpen }" @click="toggleNotifications">
                     <svg class="fill-current w-10 h-10" viewBox="0 0 24 24">
@@ -155,6 +153,9 @@ export default {
                                     v-for="i in Array(5).keys()">
                                     Notification {{ i + 1 }}
                                 </a>
+                                <div @click="logout" class="block px-4 py-2 hover:text-gray-100 hover:bg-gray-800 cursor-pointer">
+                                    Logout
+                                </div>
                             </div>
                         </div>
                     </div>
