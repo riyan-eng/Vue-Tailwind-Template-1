@@ -24,12 +24,6 @@
       "userId": 48
     },
     {
-      "id": 5,
-      "todo": "Solve a Rubik's cube",
-      "completed": false,
-      "userId": 31
-    },
-    {
       "id": 6,
       "todo": "Bake pastries for me and neighbor",
       "completed": false,
@@ -52,12 +46,6 @@
       "todo": "Invite some friends over for a game night",
       "completed": false,
       "userId": 47
-    },
-    {
-      "id": 10,
-      "todo": "Have a football scrimmage with some friends",
-      "completed": false,
-      "userId": 19
     },
     {
       "id": 11,

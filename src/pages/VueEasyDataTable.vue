@@ -2,10 +2,10 @@
     <PrivateLayout>
         <button @click="toggleModalInsertOne"
             class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm mb-2">
-            Open large modal
+            Insert One
         </button>
         <ModalInsertOne @emtToggleModalInsertOne="toggleModalInsertOne" :showModalInsertOne="showModalInsertOne"/>
-        <ModalDeleteOne @emtToggleModalDeleteOne="toggleModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
+        <ModalDeleteOne @emtOnDelete="onDelete" @emtCloseModalDeleteOne="closeModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
         <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
         <ModalFindOne @emtCloseModalFindOne="closeModalFindOne"  :showModalFindOne="showModalFindOne" :item="item"/>
         <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
@@ -47,7 +47,7 @@ export default {
         ModalInsertOne, ModalFindOne, ModalUpdateOne, ModalDeleteOne, PrivateLayout, Vue3EasyDataTable, TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon
     },
     created() {
-        this.findTodo()
+        this.findAllTodo()
     },
     data() {
         return {
@@ -68,7 +68,7 @@ export default {
         }
     },
     methods: {
-        async findTodo() {
+        async findAllTodo() {
             const { data } = await axios.get("http://localhost:3000/todos")
             this.items = data
         },
@@ -81,9 +81,11 @@ export default {
                 todo: payload.todo,
                 completed: payload.completed
             })
-            // this.item = data
-            // console.log(status)
-            this.findTodo()
+            this.findAllTodo()
+        },
+        async deleteOneTodo(id) {
+            const { data } = await axios.delete(`http://localhost:3000/todos/${id}`)
+            this.findAllTodo()
         },
         toggleModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne;
@@ -107,8 +109,14 @@ export default {
         closeModalUpdateOne(){
             this.showModalUpdateOne = !this.showModalUpdateOne
         },
+        closeModalDeleteOne(){
+            this.showModalDeleteOne = !this.showModalDeleteOne
+        },
         onSubmitUpdate(payload){
             this.updateOneTodo(payload)
+        },
+        onDelete(id){
+            this.deleteOneTodo(id)
         }
     },
 }
