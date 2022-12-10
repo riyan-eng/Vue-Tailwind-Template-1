@@ -1,6 +1,10 @@
-function getTodo() {
-  const response = fetch("https://dummyjson.com/todos?limit=3&skip=10");
-  return response
+import axios from "axios";
+
+async function findAll() {
+  const {data, status} = await axios.get("http://localhost:3000/todos");
+  return {
+    status, data
+  };
 }
 
-export { getTodo };
+export { findAll };

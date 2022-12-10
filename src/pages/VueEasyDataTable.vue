@@ -14,11 +14,14 @@
                 </button>
             </div>
         </div>
-        <ModalDeleteMany @emtOnDeleteMany="onDeleteMany" @emtCloseModalDeleteMany="closeModalDeleteMany" :showModalDeleteMany="showModalDeleteMany" :items="itemsSelected"/>
-        <ModalInsertOne @emtToggleModalInsertOne="toggleModalInsertOne" :showModalInsertOne="showModalInsertOne"/>
-        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
-        <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
-        <ModalFindOne @emtCloseModalFindOne="closeModalFindOne"  :showModalFindOne="showModalFindOne" :item="item"/>
+        <ModalDeleteMany @emtOnDeleteMany="onDeleteMany" @emtCloseModalDeleteMany="closeModalDeleteMany"
+            :showModalDeleteMany="showModalDeleteMany" :items="itemsSelected" />
+        <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne" :showModalInsertOne="showModalInsertOne" />
+        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
+            :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
+        <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne"
+            :showModalUpdateOne="showModalUpdateOne" :item="item" />
+        <ModalFindOne @emtCloseModalFindOne="closeModalFindOne" :showModalFindOne="showModalFindOne" :item="item" />
         <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
             :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
             <template #item-action="item">
@@ -68,7 +71,7 @@ export default {
             showModalDeleteOne: false,
             showModalDeleteMany: false,
             showModalUpdateOne: false,
-            showModalFindOne:false,
+            showModalFindOne: false,
             idItem: null,
             headers: [
                 { text: "Name", value: "todo" },
@@ -92,7 +95,7 @@ export default {
             this.item = data
         },
         async updateOneTodo(payload) {
-            const { status } = await axios.put(`http://localhost:3000/todos/${payload.id}`,{
+            const { status } = await axios.put(`http://localhost:3000/todos/${payload.id}`, {
                 todo: payload.todo,
                 completed: payload.completed
             })
@@ -100,6 +103,19 @@ export default {
         },
         async deleteOneTodo(id) {
             const { data } = await axios.delete(`http://localhost:3000/todos/${id}`)
+            this.findAllTodo()
+        },
+        async deleteManyTodo(items) {
+            for (var item of items) {
+                const { data } = await axios.delete(`http://localhost:3000/todos/${item.id}`)
+            }
+            this.findAllTodo()
+        },
+        async insertOneTodo(payload) {
+            const { status } = await axios.post(`http://localhost:3000/todos`, {
+                todo: payload.todo,
+                completed: payload.completed
+            })
             this.findAllTodo()
         },
         toggleModalInsertOne() {
@@ -113,42 +129,48 @@ export default {
             this.idItem = null
             this.idItem = id
         },
-        toggleModalUpdateOne(id){
+        toggleModalUpdateOne(id) {
             this.showModalUpdateOne = !this.showModalUpdateOne
             this.findOneTodo(id)
         },
-        toggleModalFindOne(id){
+        toggleModalFindOne(id) {
             this.showModalFindOne = !this.showModalFindOne
             this.findOneTodo(id)
         },
-        closeModalFindOne(){
+        closeModalInsertOne() {
+            this.showModalInsertOne = !this.showModalInsertOne
+        },
+        closeModalFindOne() {
             this.showModalFindOne = !this.showModalFindOne
         },
-        closeModalUpdateOne(){
+        closeModalUpdateOne() {
             this.showModalUpdateOne = !this.showModalUpdateOne
         },
-        closeModalDeleteOne(){
+        closeModalDeleteOne() {
             this.showModalDeleteOne = !this.showModalDeleteOne
         },
-        closeModalDeleteMany(){
+        closeModalDeleteMany() {
             this.showModalDeleteMany = !this.showModalDeleteMany
         },
-        onSubmitUpdate(payload){
+        onSubmitUpdate(payload) {
             this.updateOneTodo(payload)
         },
-        onDeleteOne(id){
+        onDeleteOne(id) {
             this.deleteOneTodo(id)
         },
-        onDeleteMany(items){
-            console.log(items)
+        onDeleteMany(items) {
+            this.deleteManyTodo(items)
+            this.itemsSelected = []
+        },
+        onSubmitInsertOne(payload){
+            this.insertOneTodo(payload)
         }
     },
-    computed:{
+    computed: {
         currentbtnDeleteMany: function () {
-
-            if (this.itemsSelected.length > 0){
+            if (this.itemsSelected.length > 0) {
                 this.btnDeleteMany = false
-            }else{
+            } else {
                 this.btnDeleteMany = true
             }
             return this.btnDeleteMany
