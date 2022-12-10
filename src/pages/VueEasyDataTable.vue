@@ -1,11 +1,22 @@
 <template>
     <PrivateLayout>
-        <button @click="toggleModalInsertOne"
-            class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm mb-2">
-            Insert One
-        </button>
+        <div class="flex">
+            <div class="px-1">
+                <button @click="toggleModalInsertOne"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm mb-2">
+                    Insert One
+                </button>
+            </div>
+            <div class="px-1">
+                <button :disabled="currentbtnDeleteMany" @click="toggleModalDeleteMany"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm mb-2 disabled:cursor-not-allowed disabled:bg-indigo-300">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <ModalDeleteMany @emtOnDeleteMany="onDeleteMany" @emtCloseModalDeleteMany="closeModalDeleteMany" :showModalDeleteMany="showModalDeleteMany" :items="itemsSelected"/>
         <ModalInsertOne @emtToggleModalInsertOne="toggleModalInsertOne" :showModalInsertOne="showModalInsertOne"/>
-        <ModalDeleteOne @emtOnDelete="onDelete" @emtCloseModalDeleteOne="closeModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
+        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne" :showModalDeleteOne="showModalDeleteOne" :idItem="idItem"/>
         <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne" :showModalUpdateOne="showModalUpdateOne" :item="item"/>
         <ModalFindOne @emtCloseModalFindOne="closeModalFindOne"  :showModalFindOne="showModalFindOne" :item="item"/>
         <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
@@ -41,10 +52,12 @@ import ModalInsertOne from '../components/vueEasyDataTable/ModalInsertOne.vue';
 import ModalDeleteOne from '../components/vueEasyDataTable/ModalDeleteOne.vue';
 import ModalUpdateOne from '../components/vueEasyDataTable/ModalUpdateOne.vue';
 import ModalFindOne from '../components/vueEasyDataTable/ModalFindOne.vue'
+import ModalDeleteMany from '../components/vueEasyDataTable/ModalDeleteMany.vue'
+
 
 export default {
     components: {
-        ModalInsertOne, ModalFindOne, ModalUpdateOne, ModalDeleteOne, PrivateLayout, Vue3EasyDataTable, TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon
+        ModalInsertOne, ModalDeleteMany, ModalFindOne, ModalUpdateOne, ModalDeleteOne, PrivateLayout, Vue3EasyDataTable, TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon
     },
     created() {
         this.findAllTodo()
@@ -53,6 +66,7 @@ export default {
         return {
             showModalInsertOne: false,
             showModalDeleteOne: false,
+            showModalDeleteMany: false,
             showModalUpdateOne: false,
             showModalFindOne:false,
             idItem: null,
@@ -64,7 +78,8 @@ export default {
             ],
             items: [],
             itemsSelected: [],
-            item: {}
+            item: {},
+            btnDeleteMany: true
         }
     },
     methods: {
@@ -90,6 +105,9 @@ export default {
         toggleModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne;
         },
+        toggleModalDeleteMany() {
+            this.showModalDeleteMany = !this.showModalDeleteMany;
+        },
         toggleModalDeleteOne(id) {
             this.showModalDeleteOne = !this.showModalDeleteOne;
             this.idItem = null
@@ -112,13 +130,30 @@ export default {
         closeModalDeleteOne(){
             this.showModalDeleteOne = !this.showModalDeleteOne
         },
+        closeModalDeleteMany(){
+            this.showModalDeleteMany = !this.showModalDeleteMany
+        },
         onSubmitUpdate(payload){
             this.updateOneTodo(payload)
         },
-        onDelete(id){
+        onDeleteOne(id){
             this.deleteOneTodo(id)
+        },
+        onDeleteMany(items){
+            console.log(items)
         }
     },
+    computed:{
+        currentbtnDeleteMany: function () {
+
+            if (this.itemsSelected.length > 0){
+                this.btnDeleteMany = false
+            }else{
+                this.btnDeleteMany = true
+            }
+            return this.btnDeleteMany
+        }
+    }
 }
 
 </script>
