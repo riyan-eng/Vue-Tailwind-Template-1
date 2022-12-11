@@ -13,10 +13,14 @@
                     Delete
                 </button>
             </div>
+            <div>
+                <button @click="test">test</button>
+            </div>
         </div>
         <ModalDeleteMany @emtOnDeleteMany="onDeleteMany" @emtCloseModalDeleteMany="closeModalDeleteMany"
             :showModalDeleteMany="showModalDeleteMany" :items="itemsSelected" />
-        <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne" :showModalInsertOne="showModalInsertOne" />
+        <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
+            :showModalInsertOne="showModalInsertOne" />
         <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
             :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <ModalUpdateOne @emtSubmitUpdate="onSubmitUpdate" @emtCloseModalUpdateOne="closeModalUpdateOne"
@@ -40,9 +44,8 @@
             </div> -->
             </template>
         </Vue3EasyDataTable>
-        items selected:<br />
-        {{ itemsSelected }}
-        <br>
+
+
     </PrivateLayout>
 </template>
 
@@ -162,8 +165,17 @@ export default {
             this.deleteManyTodo(items)
             this.itemsSelected = []
         },
-        onSubmitInsertOne(payload){
+        onSubmitInsertOne(payload) {
             this.insertOneTodo(payload)
+        },
+
+        test() {
+            this.$notify({
+                title: "Info",
+                text: "This channel archived by the owner!",
+                type: "info",
+                group: "foo",
+            }, 4000)
         }
     },
     computed: {

@@ -52,6 +52,11 @@
       "todo": "Eat at restorant",
       "completed": false,
       "id": 32
+    },
+    {
+      "todo": "Makan",
+      "completed": true,
+      "id": 33
     }
   ]
 }

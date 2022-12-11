@@ -2,6 +2,8 @@
     <PrivateLayout>
         <h1>ini wallet</h1>
         <div>{{               response               }}</div>
+
+        
     </PrivateLayout>
 </template>
 <script>

@@ -21,7 +21,7 @@ export default {
             this.$refs.menu.scrollTo(0, 0)
             this.isMenuOpen = !this.isMenuOpen;
         },
-        logout(){
+        logout() {
             this.$store.dispatch('signOut')
             this.$router.push('/login')
         }
@@ -50,7 +50,7 @@ export default {
 <template>
     <div id="app">
         <nav
-            class="fixed top-0 inset-x-0 z-50 h-16 text-white bg-cyan-600 font-medium flex justify-between items-center shadow-lg">
+            class="fixed top-0 inset-x-0 z-50 h-16 text-white bg-indigo-700 font-medium flex justify-between items-center shadow-lg">
             <!-- Extract: MobileMenu Vue component -->
             <div class="w-16 h-16 flex justify-center items-center text-gray-600 sm:hidden">
                 <button class="p-1 hover:text-white" :class="{ 'text-white': isMenuOpen }" @click="toggleMenu">
@@ -125,7 +125,7 @@ export default {
             </div>
 
             <!-- Extract: Notifications Vue component -->
-            <div class="w-16 h-16 flex justify-center items-center text-gray-600 ">                
+            <div class="w-16 h-16 flex justify-center items-center text-gray-600 ">
                 <button class="p-1 hover:text-white focus:text-white focus:outline-none"
                     :class="{ 'text-white': isNotificationsOpen }" @click="toggleNotifications">
                     <svg class="fill-current w-10 h-10" viewBox="0 0 24 24">
@@ -153,7 +153,8 @@ export default {
                                     v-for="i in Array(5).keys()">
                                     Notification {{ i + 1 }}
                                 </a>
-                                <div @click="logout" class="block px-4 py-2 hover:text-gray-100 hover:bg-gray-800 cursor-pointer">
+                                <div @click="logout"
+                                    class="block px-4 py-2 hover:text-gray-100 hover:bg-gray-800 cursor-pointer">
                                     Logout
                                 </div>
                             </div>
@@ -177,9 +178,57 @@ export default {
                 <slot></slot>
             </div>
         </main>
+
+        <NotificationGroup group="foo">
+            <div class="fixed inset-0 flex items-start justify-end p-6 px-4 py-6 pointer-events-none">
+                <div class="w-full max-w-sm">
+                    <Notification v-slot="{ notifications }" enter="transform ease-out duration-300 transition"
+                        enter-from="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-4"
+                        enter-to="translate-y-0 opacity-100 sm:translate-x-0" leave="transition ease-in duration-500"
+                        leave-from="opacity-100" leave-to="opacity-0" move="transition duration-500"
+                        move-delay="delay-300">
+                        <div v-for="notification in notifications" :key="notification.id">
+                            <div v-if="notification.type === 'info'"
+                                class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-lg shadow-md">
+                                <div class="flex items-center justify-center w-12 bg-blue-500">
+                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="px-4 py-2 -mx-3">
+                                    <div class="mx-3">
+                                        <span class="font-semibold text-blue-500">{{ notification.title }}</span>
+                                        <p class="text-sm text-gray-600">T{{ notification.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-lg shadow-md"
+                                v-if="notification.type === 'warning'">
+                                <div class="flex items-center justify-center w-12 bg-yellow-500">
+                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="px-4 py-2 -mx-3">
+                                    <div class="mx-3">
+                                        <span class="font-semibold text-yellow-500">{{ notification.title }}</span>
+                                        <p class="text-sm text-gray-600">{{ notification.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Notification>
+                </div>
+            </div>
+        </NotificationGroup>
     </div>
-
-
 </template>
 
 <style scoped>
