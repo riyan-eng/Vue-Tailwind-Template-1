@@ -56,6 +56,41 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/access",
+    component: () => import("../pages/Access.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/permission",
+    component: () => import("../pages/Permission.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/role",
+    component: () => import("../pages/Role.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/permission_access",
+    component: () => import("../pages/PermissionAccess.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/role_permission",
+    component: () => import("../pages/RolePermission.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
 
 const router = createRouter({
