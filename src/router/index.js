@@ -61,6 +61,9 @@ const routes = [
     component: () => import("../pages/Access.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Access'}
+      ]
     },
   },
   {
