@@ -1,16 +1,6 @@
 <template>
     <PrivateLayout>
-        <nav class="bg-gray-100 rounded mb-2">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li aria-current="page" v-for="(breadcrumb, index) in breadcrumbList" :key="index">
-                    <div class="flex items-center">
-                        <!-- <ChevronRightIcon class="h-4 w-4" /> -->
-                        <span style="font-size:small" class="ml-1 text-gray-500 md:ml-2 dark:text-gray-400">{{breadcrumb.name}}</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
-        <div class="flex justify-between items-center mb-2">
+        <div class="flex justify-between items-center my-2">
             <div>
                 <h1>Access</h1>
             </div>
@@ -80,7 +70,7 @@ export default {
             itemsSelected: [],
             item: {},
             btnDeleteMany: true,
-            breadcrumbList: this.$route.meta.breadcrumb
+            
         }
     },
     methods: {

@@ -12,6 +12,9 @@ const routes = [
     component: () => import("../pages/Dashboard.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Dashboard'}
+      ]
     },
   },
   {
@@ -47,6 +50,7 @@ const routes = [
     component: () => import("../pages/Profile.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb: [{ name: "Profile" }],
     },
   },
   {
@@ -61,9 +65,7 @@ const routes = [
     component: () => import("../pages/Access.vue"),
     meta: {
       requiresAuth: true,
-      breadcrumb:[
-        {name: 'Access'}
-      ]
+      breadcrumb: [{ name: "Access" }],
     },
   },
   {
@@ -71,6 +73,9 @@ const routes = [
     component: () => import("../pages/Permission.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Permission'}
+      ]
     },
   },
   {
@@ -78,6 +83,9 @@ const routes = [
     component: () => import("../pages/Role.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Role'}
+      ]
     },
   },
   {
@@ -85,6 +93,9 @@ const routes = [
     component: () => import("../pages/PermissionAccess.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Permission Access'}
+      ]
     },
   },
   {
@@ -92,6 +103,9 @@ const routes = [
     component: () => import("../pages/RolePermission.vue"),
     meta: {
       requiresAuth: true,
+      breadcrumb:[
+        {name: 'Role Permission'}
+      ]
     },
   },
 ];

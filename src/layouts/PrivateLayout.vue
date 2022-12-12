@@ -11,7 +11,8 @@ export default {
     data() {
         return {
             isNotificationsOpen: false,
-            isMenuOpen: false
+            isMenuOpen: false,
+            breadcrumbList: this.$route.meta.breadcrumb
         }
     },
     methods: {
@@ -196,6 +197,7 @@ export default {
             style="border-right: solid 1px rgba(8, 145, 178, 0.1)">
             <div class="p-2 min-h-full">
                 <div class="">
+                    
                     <SideNav />
                 </div>
             </div>
@@ -203,6 +205,17 @@ export default {
 
         <main class="pt-12 sm:pl-64">
             <div class="p-4">
+                <nav class="bg-gray-100 py-1 rounded mb-2">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li aria-current="page" v-for="(breadcrumb, index) in breadcrumbList" :key="index">
+                            <div class="flex items-center">
+                                <!-- <ChevronRightIcon class="h-4 w-4" /> -->
+                                <span style="font-size:small" class="ml-1 text-gray-500 md:ml-2 dark:text-gray-400">{{breadcrumb.name}}</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <hr>
                 <slot></slot>
             </div>
         </main>
