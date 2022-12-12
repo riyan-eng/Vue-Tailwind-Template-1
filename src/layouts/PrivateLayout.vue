@@ -127,7 +127,7 @@ export default {
             </div>
 
             <!-- Extract: Notifications Vue component -->
-            <div class="w-40 h-12 flex justify-end items-center text-gray-600 mr-8">
+            <div class="w-40 h-12 flex justify-end items-center text-gray-600 mr-2">
                 <button
                     class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-800 rounded text-white px-1 py-1 text-xs sm:text-sm"
                     :class="{ 'text-white': isNotificationsOpen }" @click="toggleNotifications">
@@ -154,11 +154,13 @@ export default {
                     leave-to-class="translate-x-full">
                     <div v-show="isNotificationsOpen" class="pt-12 fixed inset-0 h-full" @click="toggleNotifications">
                         <div ref="notifications"
-                            class="mt-14 mr-8 absolute right-0 inset-y-0 w-64 max-w-sm overflow-y-auto">
+                            class="mt-14 mr-2 absolute right-0 inset-y-0 w-64 max-w-sm overflow-y-auto">
                             <div class="relative rounded z-40 py-2 text-gray-700 bg-white border  shadow">
-                                <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                                    <div>Bonnie Green</div>
-                                    <div class="font-medium truncate">name@flowbite.com</div>
+                                <div class="py-3 px-4 text-sm text-gray-900 dark:text-white hover:bg-gray-100">
+                                    <router-link to="/profile" >
+                                        <div>Bonnie Green</div>
+                                        <div class="font-medium truncate">name@flowbite.com</div>
+                                    </router-link>
                                 </div>
                                 <hr>
                                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
