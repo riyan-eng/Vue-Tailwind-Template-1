@@ -1,9 +1,11 @@
 <script>
 import SideNav from './SideNav.vue'
+import { ChevronDownIcon } from "@heroicons/vue/24/outline"
+
 
 export default {
     components: {
-        SideNav
+        SideNav, ChevronDownIcon
     },
 
     data() {
@@ -125,19 +127,24 @@ export default {
             </div>
 
             <!-- Extract: Notifications Vue component -->
-            <div class="w-16 h-16 flex justify-center items-center text-gray-600 ">
-                <button class="p-1 hover:text-white focus:text-white focus:outline-none"
+            <div class="w-40 h-12 flex justify-end items-center text-gray-600 mr-8">
+                <button
+                    class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-800 rounded text-white px-1 py-1 text-xs sm:text-sm"
                     :class="{ 'text-white': isNotificationsOpen }" @click="toggleNotifications">
-                    <svg class="fill-current w-7 h-7" viewBox="0 0 24 24">
+                    <!-- <svg class="fill-current w-7 h-7" viewBox="0 0 24 24">
                         <path
                             d="M11.5,22C11.64,22 11.77,22 11.9,21.96C12.55,21.82 13.09,21.38 13.34,20.78C13.44,20.54 13.5,20.27 13.5,20H9.5A2,2 0 0,0 11.5,22M18,10.5C18,7.43 15.86,4.86 13,4.18V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V4.18C7.13,4.86 5,7.43 5,10.5V16L3,18V19H20V18L18,16M19.97,10H21.97C21.82,6.79 20.24,3.97 17.85,2.15L16.42,3.58C18.46,5 19.82,7.35 19.97,10M6.58,3.58L5.15,2.15C2.76,3.97 1.18,6.79 1,10H3C3.18,7.35 4.54,5 6.58,3.58Z">
                         </path>
-                    </svg>
+                    </svg> -->
+                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                        data-dropdown-placement="bottom-start" class="w-6 h-6 rounded-full cursor-pointer"
+                        src="https://kincirimage.s3-ap-southeast-1.amazonaws.com/production/2021-09/16by9/fakta-baryon-mode-naruto-anime-boruto~5a63cc0b-cfab-41f7-9cce-a1323c321d93.jpg"
+                        alt="User dropdown">
+                    <ChevronDownIcon class="w-4 h-4 ml-1" />
                 </button>
 
                 <transition enter-active-class="transition duration-200 ease-in-out" enter-class="opacity-0">
-                    <div v-show="isNotificationsOpen"
-                        class="absolute inset-0 z-30 min-h-screen bg-black opacity-50 focus:outline-none"
+                    <div v-show="isNotificationsOpen" class="absolute inset-0 z-30 min-h-screen  focus:outline-none"
                         @click="toggleNotifications" tabindex="-1">
                     </div>
                 </transition>
@@ -145,18 +152,37 @@ export default {
                 <transition enter-active-class="transition duration-200 ease-in-out transform"
                     enter-class="translate-x-full" leave-active-class="transition duration-200 ease-in-out transform"
                     leave-to-class="translate-x-full">
-                    <div v-show="isNotificationsOpen" class="pt-16 fixed inset-0 h-full">
+                    <div v-show="isNotificationsOpen" class="pt-12 fixed inset-0 h-full" @click="toggleNotifications">
                         <div ref="notifications"
-                            class="mt-16 absolute right-0 inset-y-0 w-full max-w-sm overflow-y-auto">
-                            <div class="relative z-40 py-2 text-gray-700 bg-white border border-yellow-400 shadow-lg">
-                                <a href="#" class="block px-4 py-2 hover:text-gray-100 hover:bg-gray-800"
-                                    v-for="i in Array(5).keys()">
-                                    Notification {{ i + 1 }}
-                                </a>
-                                <div @click="logout"
-                                    class="block px-4 py-2 hover:text-gray-100 hover:bg-gray-800 cursor-pointer">
-                                    Logout
+                            class="mt-14 mr-8 absolute right-0 inset-y-0 w-64 max-w-sm overflow-y-auto">
+                            <div class="relative rounded z-40 py-2 text-gray-700 bg-white border  shadow">
+                                <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
+                                    <div>Bonnie Green</div>
+                                    <div class="font-medium truncate">name@flowbite.com</div>
                                 </div>
+                                <hr>
+                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="avatarButton">
+                                    <li>
+                                        <a href="#"
+                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <div class="py-1">
+                                    <div @click="logout"
+                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer">Sign
+                                        out</div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
