@@ -215,11 +215,11 @@ export default {
         }
     },
     created(){
-        this.userName = this.$store.getters.user.data.userName
+        this.userName = this.$store.getters.user.data.accountName
         this.unitName = this.$store.getters.user.data.unitName
         this.userEmail = this.$store.getters.user.data.userEmail
         this.userPhoneNumber = this.$store.getters.user.data.userPhoneNumber
-        this.roleName = this.$store.getters.user.data.roleName
+        this.roleName = this.$store.getters.user.data.role.roleName
     }
 }
 </script>

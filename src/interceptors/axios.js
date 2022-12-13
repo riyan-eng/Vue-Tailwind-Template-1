@@ -7,7 +7,7 @@ var refresh = false
 axios.interceptors.response.use(resp=>resp, async error => {
     if(error.response.status === 401 && !refresh){
         refresh = true
-        const {status, data} = await axios.get('/auth/token/refresh',{
+        const {status, data} = await axios.get('/manajemen/session/generate',{
             headers:{
                 'Authorization': `Bearer ${store.getters.user.refreshToken}`
             }

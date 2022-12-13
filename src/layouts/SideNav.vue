@@ -1,6 +1,6 @@
 <template>
     <router-link v-for="(menu, index) of menus" :key="index" :to="menu.menuPath"
-        class="px-10 py-2 flex items-center text-indigo-700 hover:text-white hover:rounded-md hover:bg-indigo-700 sm:px-4 sm:text-base">
+        class="px-10 py-2 flex items-center text-gray-100 hover:text-indigo-300 hover:rounded-md hover:bg-gray-700 sm:px-4 sm:text-base">
         <component :is="menu.menuIcon" class="h-5 w-5 hover:text-white"></component>
         <div class="ml-6 flex-1 sm:ml-4 text-sm capitalize">{{ menu.menuName }}</div>
     </router-link>
