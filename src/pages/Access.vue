@@ -22,9 +22,10 @@
             </div>
         </div>
         <hr style="border-top: 3px double #8c8b8b;">
-        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'"
-            v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]"
-            :rows-per-page="10">
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#4338ca'"
+            v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
+            :rows-per-page="15" fixed-checkbox :checkbox-column-width="25" fixed-index
+            :index-column-width="20">
             <template #item-action="item">
                 <div class="flex">
                     <div @click="toggleModalFindOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
@@ -61,9 +62,9 @@ export default {
         return {
             idItem: null,
             headers: [
-                { text: "Name", value: "accessName" },
-                { text: "Status", value: "isActive" },
-                { text: "Action", value: "action" },
+                { text: "Name", value: "accessName"},
+                { text: "Status", value: "isActive", width: 50 },
+                { text: "Action", value: "action", width:80 },
 
             ],
             items: [],
