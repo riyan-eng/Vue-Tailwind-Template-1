@@ -21,7 +21,7 @@
         </div>
         <hr style="border-top: 3px double #8c8b8b" />
         <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
-            :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
+            :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]" :rows-per-page="15">
             <template #item-action="item">
                 <div class="flex">
                     <div @click="toggleModalFindOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
