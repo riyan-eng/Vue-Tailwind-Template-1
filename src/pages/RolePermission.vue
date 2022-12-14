@@ -1,7 +1,28 @@
 <template>
     <PrivateLayout>
-        <h1>Ini Role Permission</h1>
-        <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
+        <div class="flex justify-between items-center my-2">
+            <div>
+                <h1>Role Permission</h1>
+            </div>
+            <div class="flex justify-end">
+                <div class="px-1">
+                    <button
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">
+                        Delete
+                    </button>
+                </div>
+                <div class="px-1">
+                    <button @click="toggleModalInsertOne"
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
+            :showModalInsertOne="showModalInsertOne" :roles="roles" :permissions="permissions"/>
+        <hr style="border-top: 3px double #8c8b8b" />
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
             :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
             <template #item-action="item">
                 <div class="flex">
@@ -26,10 +47,12 @@ import PrivateLayout from '../layouts/PrivateLayout.vue';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import axios from 'axios';
 import { TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon } from "@heroicons/vue/24/outline"
+import ModalInsertOne from '../components/rolePermission/ModalInsertOne.vue'
+
 
 export default{
     components:{
-        PrivateLayout, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable
+        PrivateLayout, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable, ModalInsertOne
     },
     created() {
         this.findAllRolePermission()
@@ -47,10 +70,24 @@ export default{
             items: [],
             itemsSelected: [],
             item: {},
-            btnDeleteMany: true
+            btnDeleteMany: true,
+            showModalInsertOne: false,
+            roles: [],
+            permissions: [],
         }
     },
     methods:{
+        async insertOneRolePermission(payload){
+            const { data } = await axios.post("/manajemen/rolePermission/insertOne",{
+                'roleId': payload.roleId,
+                'permissionId': payload.permissionId
+            },{
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.findAllRolePermission()
+        },
         async findAllRolePermission(){
             const { data } = await axios.get("/manajemen/rolePermission/findAll",{
                 headers: {
@@ -58,7 +95,41 @@ export default{
                 }
             })
             this.items = data.data
-        }
+        },
+        async findAllRole(){
+            const { data } = await axios.get("/manajemen/role/findAll",{
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.roles = data.data
+        },
+        async findAllPermission(){
+            const { data } = await axios.get("/manajemen/permission/findAll",{
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.permissions = data.data
+        },
+        
+        toggleModalInsertOne() {
+            this.findAllRole()
+            this.findAllPermission()
+            this.showModalInsertOne = !this.showModalInsertOne;
+        },
+        onSubmitInsertOne(payload) {
+            this.insertOneRolePermission(payload)
+            console.log(payload)
+        },
+        closeModalInsertOne() {
+            this.showModalInsertOne = !this.showModalInsertOne
+        },
     }
 }
 </script>
+<style scoped>
+.customize-table {
+    --easy-table-border: 0px;
+}
+</style>

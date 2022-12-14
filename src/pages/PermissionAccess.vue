@@ -1,7 +1,26 @@
 <template>
     <PrivateLayout>
-        <h1>Ini Permission Access</h1>
-        <Vue3EasyDataTable buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
+        <div class="flex justify-between items-center my-2">
+            <div>
+                <h1>Permission Access</h1>
+            </div>
+            <div class="flex justify-end">
+                <div class="px-1">
+                    <button
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">
+                        Delete
+                    </button>
+                </div>
+                <div class="px-1">
+                    <button
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr style="border-top: 3px double #8c8b8b" />
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
             :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
             <template #item-action="item">
                 <div class="flex">
@@ -64,3 +83,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+.customize-table {
+    --easy-table-border: 0px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-    <router-link v-for="(menu, index) of menus" :key="index" :to="menu.menuPath"
-        class="px-10 py-2 flex items-center text-gray-100 hover:text-indigo-300 hover:rounded-md hover:bg-gray-700 sm:px-4 sm:text-base">
+    <router-link v-for="(menu, index) of listMenu" :key="index" :to="menu.menuPath"
+        class="px-10 py-2 flex items-center   hover:rounded-md hover:bg-gray-800 sm:px-4 sm:text-base" :class="menu.active? 'text-indigo-400' : 'text-gray-200'">
         <component :is="menu.menuIcon" class="h-5 w-5 hover:text-white"></component>
         <div class="ml-6 flex-1 sm:ml-4 text-sm capitalize">{{ menu.menuName }}</div>
     </router-link>
@@ -59,8 +59,20 @@ export default {
                     menuIcon: 'UserIcon',
                     active: false,
                 },
-                
+
             ]
+        }
+    },
+    computed: {
+        listMenu: function () {
+            for (var menu of this.menus) {
+                if (menu.menuPath == this.$route.path) {
+                    menu.active = true
+                } else {
+                    menu.active = false
+                }
+            }
+            return this.menus
         }
     }
 }
