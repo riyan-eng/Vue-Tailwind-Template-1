@@ -108,22 +108,22 @@ export default {
             })
             this.findAllPermission()
         },
+
         toggleModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne;
         },
-        toggleModalDeleteOne(id) {
-            this.showModalDeleteOne = !this.showModalDeleteOne;
-            this.idItem = null
-            this.idItem = id
-        },
-
-
         onSubmitInsertOne(payload) {
             this.insertOnePermission(payload)
             console.log(payload)
         },
         closeModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne
+        },
+
+        toggleModalDeleteOne(id) {
+            this.showModalDeleteOne = !this.showModalDeleteOne;
+            this.idItem = null
+            this.idItem = id
         },
         onDeleteOne(id) {
             console.log(id)
