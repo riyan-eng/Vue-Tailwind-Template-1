@@ -122,12 +122,12 @@ export default {
             this.insertOnePermission(payload)
             console.log(payload)
         },
+        closeModalInsertOne() {
+            this.showModalInsertOne = !this.showModalInsertOne
+        },
         onDeleteOne(id) {
             console.log(id)
             this.deleteOnePermission(id)
-        },
-        closeModalInsertOne() {
-            this.showModalInsertOne = !this.showModalInsertOne
         },
         closeModalDeleteOne() {
             this.showModalDeleteOne = !this.showModalDeleteOne
