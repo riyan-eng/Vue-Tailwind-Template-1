@@ -20,21 +20,23 @@
             </div>
         </div>
         <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
-        :showModalInsertOne="showModalInsertOne" />
+            :showModalInsertOne="showModalInsertOne" />
+        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
+            :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
         <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#4338ca'"
             v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
             :rows-per-page="15" fixed-checkbox :checkbox-column-width="25" fixed-index :index-column-width="20">
             <template #item-action="item">
                 <div class="flex">
-                    <div @click="toggleModalFindOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
+                    <div @click="toggleModalFindOne(item.menuId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
                         <EyeIcon />
                     </div>
-                    <div @click="toggleModalUpdateOne(item.accessId)"
+                    <div @click="toggleModalUpdateOne(item.menuId)"
                         class="h-7 w-7 p-1 cursor-pointer text-yellow-500">
                         <PencilSquareIcon />
                     </div>
-                    <div @click="toggleModalDeleteOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
+                    <div @click="toggleModalDeleteOne(item.menuId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
                         <TrashIcon />
                     </div>
                 </div>
@@ -55,11 +57,13 @@ import {
     ChevronRightIcon,
 } from "@heroicons/vue/24/outline";
 import ModalInsertOne from "../components/menu/ModalInsertOne.vue";
+import ModalDeleteOne from "../components/menu/ModalDeleteOne.vue";
 
 export default {
     components: {
         PrivateLayout,
         ModalInsertOne,
+        ModalDeleteOne,
         TrashIcon,
         PencilSquareIcon,
         EyeIcon,
@@ -114,6 +118,27 @@ export default {
         },
         closeModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne
+        },
+
+        async deleteOneMenu(id) {
+            const { data } = await axios.delete(`/manajemen/menu/deleteOne?menuId=${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.findAllMenu()
+        },
+        toggleModalDeleteOne(id) {
+            this.showModalDeleteOne = !this.showModalDeleteOne;
+            this.idItem = null
+            this.idItem = id
+        },
+        onDeleteOne(id) {
+            console.log(id)
+            this.deleteOneMenu(id)
+        },
+        closeModalDeleteOne() {
+            this.showModalDeleteOne = !this.showModalDeleteOne
         },
     },
 };
