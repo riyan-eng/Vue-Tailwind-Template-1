@@ -108,6 +108,16 @@ const routes = [
       ]
     },
   },
+  {
+    path: "/menu",
+    component: () => import("../pages/Menu.vue"),
+    meta: {
+      requiresAuth: true,
+      breadcrumb:[
+        {name: 'Menu'}
+      ]
+    },
+  },
 ];
 
 const router = createRouter({
