@@ -20,19 +20,23 @@
             </div>
         </div>
         <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
-        :showModalInsertOne="showModalInsertOne"/>
+            :showModalInsertOne="showModalInsertOne" />
+        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
+            :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
-        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
-            :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]" :rows-per-page="15">
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'"
+            v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
+            :rows-per-page="15">
             <template #item-action="item">
                 <div class="flex">
                     <div @click="toggleModalFindOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
                         <EyeIcon />
                     </div>
-                    <div @click="toggleModalUpdateOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-yellow-500">
+                    <div @click="toggleModalUpdateOne(item.accessId)"
+                        class="h-7 w-7 p-1 cursor-pointer text-yellow-500">
                         <PencilSquareIcon />
                     </div>
-                    <div @click="toggleModalDeleteOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
+                    <div @click="toggleModalDeleteOne(item.permissionsId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
                         <TrashIcon />
                     </div>
                 </div>
@@ -48,17 +52,17 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import axios from 'axios';
 import { TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon } from "@heroicons/vue/24/outline"
 import ModalInsertOne from '../components/permission/ModalInsertOne.vue'
+import ModalDeleteOne from '../components/permission/ModalDeleteOne.vue'
 
-
-export default{
-    components:{
-        PrivateLayout, ModalInsertOne, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable
+export default {
+    components: {
+        PrivateLayout, ModalInsertOne, ModalDeleteOne, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable
     },
     created() {
         this.findAllPermission()
     },
-    data(){
-        return{
+    data() {
+        return {
             idItem: null,
             headers: [
                 { text: "Name", value: "permissionName" },
@@ -70,24 +74,34 @@ export default{
             items: [],
             itemsSelected: [],
             item: {},
+            idItem: null,
             btnDeleteMany: true,
-            showModalInsertOne:false,
+            showModalInsertOne: false,
+            showModalDeleteOne: false
         }
     },
-    methods:{
-        async findAllPermission(){
-            const { data } = await axios.get("/manajemen/permission/findAll",{
+    methods: {
+        async findAllPermission() {
+            const { data } = await axios.get("/manajemen/permission/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
             this.items = data.data
         },
-        async insertOnePermission(payload){
-            const { data } = await axios.post("/manajemen/permission/insertOne",{
+        async insertOnePermission(payload) {
+            const { data } = await axios.post("/manajemen/permission/insertOne", {
                 'permissionName': payload.permissionName,
                 'permissionPath': payload.permissionPath
-            },{
+            }, {
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.findAllPermission()
+        },
+        async deleteOnePermission(id) {
+            const { data } = await axios.delete(`/manajemen/permission/deleteOne?permissionId=${id}`, {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
@@ -97,12 +111,26 @@ export default{
         toggleModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne;
         },
+        toggleModalDeleteOne(id) {
+            this.showModalDeleteOne = !this.showModalDeleteOne;
+            this.idItem = null
+            this.idItem = id
+        },
+
+
         onSubmitInsertOne(payload) {
             this.insertOnePermission(payload)
             console.log(payload)
         },
+        onDeleteOne(id) {
+            console.log(id)
+            this.deleteOnePermission(id)
+        },
         closeModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne
+        },
+        closeModalDeleteOne() {
+            this.showModalDeleteOne = !this.showModalDeleteOne
         },
     }
 }
