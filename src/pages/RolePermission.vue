@@ -77,6 +77,14 @@ export default{
         }
     },
     methods:{
+        async findAllRolePermission(){
+            const { data } = await axios.get("/manajemen/rolePermission/findAll",{
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.items = data.data
+        },
         async insertOneRolePermission(payload){
             const { data } = await axios.post("/manajemen/rolePermission/insertOne",{
                 'roleId': payload.roleId,
@@ -87,14 +95,6 @@ export default{
                 }
             })
             this.findAllRolePermission()
-        },
-        async findAllRolePermission(){
-            const { data } = await axios.get("/manajemen/rolePermission/findAll",{
-                headers: {
-                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
-                }
-            })
-            this.items = data.data
         },
         async findAllRole(){
             const { data } = await axios.get("/manajemen/role/findAll",{
