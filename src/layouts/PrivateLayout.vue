@@ -193,7 +193,7 @@ export default {
             </div>
         </nav>
 
-        <aside class="hidden pt-12 w-64 text-white bg-[url('src/assets/bg-11.jpg')] fixed inset-y-0 overflow-x-hidden overflow-y-auto sm:block"
+        <aside class="hidden pt-12 w-64 text-white bg-[url('/src/assets/bg-11.jpg')] fixed inset-y-0 overflow-x-hidden overflow-y-auto sm:block"
             style="border-right: solid 1px rgba(8, 145, 178, 0.1)">
             <div class="p-2 min-h-full">
                 <div class="">
