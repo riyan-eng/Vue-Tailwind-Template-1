@@ -59,6 +59,12 @@ export default {
                     menuIcon: 'UserIcon',
                     active: false,
                 },
+                {
+                    menuName: 'menu permission access',
+                    menuPath: '/menu_permission_access',
+                    menuIcon: 'UserIcon',
+                    active: false,
+                },
                 // {
                 //     menuName: 'vue easy data table',
                 //     menuPath: '/easy_data_table',

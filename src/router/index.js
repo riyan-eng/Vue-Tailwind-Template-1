@@ -118,6 +118,16 @@ const routes = [
       ]
     },
   },
+  {
+    path: "/menu_permission_access",
+    component: () => import("../pages/MenuPermissionAccess.vue"),
+    meta: {
+      requiresAuth: true,
+      breadcrumb:[
+        {name: 'Menu Permission Access'}
+      ]
+    },
+  },
 ];
 
 const router = createRouter({
