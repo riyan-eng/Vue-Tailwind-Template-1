@@ -20,19 +20,24 @@
             </div>
         </div>
         <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
-            :showModalInsertOne="showModalInsertOne" :roles="roles" :permissions="permissions"/>
+            :showModalInsertOne="showModalInsertOne" :roles="roles" :permissions="permissions" />
+        <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
+            :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
-        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'" v-model:items-selected="itemsSelected"
-            :headers="headers" :items="items" :rows-items="[10, 25, 50, 100]" :rows-per-page="10">
+        <hr style="border-top: 3px double #8c8b8b" />
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'"
+            v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
+            :rows-per-page="15">
             <template #item-action="item">
                 <div class="flex">
                     <div @click="toggleModalFindOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-green-500">
                         <EyeIcon />
                     </div>
-                    <div @click="toggleModalUpdateOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-yellow-500">
+                    <div @click="toggleModalUpdateOne(item.accessId)"
+                        class="h-7 w-7 p-1 cursor-pointer text-yellow-500">
                         <PencilSquareIcon />
                     </div>
-                    <div @click="toggleModalDeleteOne(item.accessId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
+                    <div @click="toggleModalDeleteOne(item.rolePermissionId)" class="h-7 w-7 p-1 cursor-pointer text-red-500">
                         <TrashIcon />
                     </div>
                 </div>
@@ -48,17 +53,17 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import axios from 'axios';
 import { TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon } from "@heroicons/vue/24/outline"
 import ModalInsertOne from '../components/rolePermission/ModalInsertOne.vue'
+import ModalDeleteOne from '../components/rolePermission/ModalDeleteOne.vue';
 
-
-export default{
-    components:{
-        PrivateLayout, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable, ModalInsertOne
+export default {
+    components: {
+        PrivateLayout, ModalDeleteOne, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable, ModalInsertOne
     },
     created() {
         this.findAllRolePermission()
     },
-    data(){
-        return{
+    data() {
+        return {
             idItem: null,
             headers: [
                 { text: "Role", value: "roleName" },
@@ -72,47 +77,48 @@ export default{
             item: {},
             btnDeleteMany: true,
             showModalInsertOne: false,
+            showModalDeleteOne: false,
             roles: [],
             permissions: [],
         }
     },
-    methods:{
-        async findAllRolePermission(){
-            const { data } = await axios.get("/manajemen/rolePermission/findAll",{
+    methods: {
+        async findAllRolePermission() {
+            const { data } = await axios.get("/manajemen/rolePermission/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
             this.items = data.data
         },
-        async insertOneRolePermission(payload){
-            const { data } = await axios.post("/manajemen/rolePermission/insertOne",{
+        async insertOneRolePermission(payload) {
+            const { data } = await axios.post("/manajemen/rolePermission/insertOne", {
                 'roleId': payload.roleId,
                 'permissionId': payload.permissionId
-            },{
+            }, {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
             this.findAllRolePermission()
         },
-        async findAllRole(){
-            const { data } = await axios.get("/manajemen/role/findAll",{
+        async findAllRole() {
+            const { data } = await axios.get("/manajemen/role/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
             this.roles = data.data
         },
-        async findAllPermission(){
-            const { data } = await axios.get("/manajemen/permission/findAll",{
+        async findAllPermission() {
+            const { data } = await axios.get("/manajemen/permission/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
             this.permissions = data.data
         },
-        
+
         toggleModalInsertOne() {
             this.findAllRole()
             this.findAllPermission()
@@ -124,6 +130,27 @@ export default{
         },
         closeModalInsertOne() {
             this.showModalInsertOne = !this.showModalInsertOne
+        },
+
+        async deleteOneRolePermission(id) {
+            const { data } = await axios.delete(`/manajemen/rolePermission/deleteOne?rolePermissionId=${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.findAllRolePermission()
+        },
+        toggleModalDeleteOne(id) {
+            this.showModalDeleteOne = !this.showModalDeleteOne;
+            this.idItem = null
+            this.idItem = id
+        },
+        onDeleteOne(id) {
+            console.log(id)
+            this.deleteOneRolePermission(id)
+        },
+        closeModalDeleteOne() {
+            this.showModalDeleteOne = !this.showModalDeleteOne
         },
     }
 }
