@@ -6,17 +6,17 @@
                 <div class="w-full flex justify-start text-gray-600 mb-3">
                     <DocumentPlusIcon class="w-14" />
                 </div>
-                <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Insert Role Permission
+                <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Insert Role Permission Access
                 </h1>
                 <form @submit.prevent="onSubmit">
 
                     <label for="role" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                         Menu</label>
-                    <select v-model="item.menuId"
+                    <select v-model="item.roleId"
                         class="mb-5 mt-2 bg-white text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                         <option value="" selected>Choose a role</option>
-                        <option v-for="(menu, index) in menus" :key="index" :value="menu.menuId">
-                            <span>{{menu.menuName}}</span>
+                        <option v-for="(role, index) in roles" :key="index" :value="role.roleId">
+                            <span>{{role.roleName}}</span>
                         </option>
                     </select>
                     <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
@@ -66,19 +66,19 @@ export default {
     data() {
         return {
             item: {
-                menuId: '',
+                roleId: '',
                 permissionAccessId: ''
             },
         }
     },
     emits: ["emtCloseModalInsertOne", "emtOnSubmitInsertOne"],
-    props: ['showModalInsertOne', 'menus', 'permissionsAccess'],
+    props: ['showModalInsertOne', 'roles', 'permissionsAccess'],
     methods: {
         closeModalInsertOne() {
             this.$emit('emtCloseModalInsertOne')
         },
         onSubmit() {
-            if (this.item.permissionAccessId === '' && this.item.menuId === ''){
+            if (this.item.permissionAccessId === '' && this.item.roleId === ''){
                 alert('tidak boleh kosing')
                 return
             }

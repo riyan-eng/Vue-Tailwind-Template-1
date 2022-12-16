@@ -20,7 +20,7 @@
             </div>
         </div>
         <ModalInsertOne @emtOnSubmitInsertOne="onSubmitInsertOne" @emtCloseModalInsertOne="closeModalInsertOne"
-            :showModalInsertOne="showModalInsertOne" :menus="menus" :permissionsAccess="permissionsAccess" />
+            :showModalInsertOne="showModalInsertOne" :roles="roles" :permissionsAccess="permissionsAccess" />
         <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
             :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
@@ -51,15 +51,15 @@ import PrivateLayout from '../layouts/PrivateLayout.vue';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import axios from 'axios';
 import { TrashIcon, PencilSquareIcon, EyeIcon, XMarkIcon } from "@heroicons/vue/24/outline"
-import ModalInsertOne from '../components/menuPermissionAccess/ModalInsertOne.vue';
-import ModalDeleteOne from '../components/menuPermissionAccess/ModalDeleteOne.vue'
+import ModalInsertOne from '../components/rolePermissionAccess/ModalInsertOne.vue';
+import ModalDeleteOne from '../components/rolePermissionAccess/ModalDeleteOne.vue'
 
 export default {
     components: {
         PrivateLayout, ModalInsertOne, ModalDeleteOne, TrashIcon, PencilSquareIcon, EyeIcon, Vue3EasyDataTable
     },
     created() {
-        this.findAllMenuPermissionAccess()
+        this.findAllRolePermissionAccess()
     },
     data() {
         return {
@@ -79,12 +79,12 @@ export default {
             showModalInsertOne: false,
             showModalDeleteOne: false,
             permissionsAccess: [],
-            menus: []
+            roles: []
         }
     },
     methods: {
-        async findAllMenuPermissionAccess() {
-            const { data } = await axios.get("/manajemen/menuPermissionAccess/findAll", {
+        async findAllRolePermissionAccess() {
+            const { data } = await axios.get("/manajemen/rolePermissionAccess/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
@@ -99,33 +99,33 @@ export default {
             })
             this.permissionsAccess = data.data
         },
-        async findAllMenu() {
-            const { data } = await axios.get("/manajemen/menu/findAll", {
+        async findAllRole() {
+            const { data } = await axios.get("/manajemen/role/findAll", {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
-            this.menus = data.data
+            this.roles = data.data
         },
 
-        async insertOneMenuPermissionAccess(payload) {
-            const { data } = await axios.post("/manajemen/menuPermissionAccess/insertOne", {
-                'menuId': payload.menuId,
+        async insertOneRolePermissionAccess(payload) {
+            const { data } = await axios.post("/manajemen/rolePermissionAccess/insertOne", {
+                'roleId': payload.roleId,
                 'permissionAccessId': payload.permissionAccessId
             }, {
                 headers: {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
-            this.findAllMenuPermissionAccess()
+            this.findAllRolePermissionAccess()
         },
         toggleModalInsertOne() {
-            this.findAllMenu()
+            this.findAllRole()
             this.findAllPermissionAccess()
             this.showModalInsertOne = !this.showModalInsertOne;
         },
         onSubmitInsertOne(payload) {
-            this.insertOneMenuPermissionAccess(payload)
+            this.insertOneRolePermissionAccess(payload)
             console.log(payload)
         },
         closeModalInsertOne() {
@@ -138,7 +138,7 @@ export default {
                     "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
                 }
             })
-            this.findAllMenuPermissionAccess()
+            this.findAllRolePermissionAccess()
         },
         toggleModalDeleteOne(id) {
             this.showModalDeleteOne = !this.showModalDeleteOne;
