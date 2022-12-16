@@ -128,6 +128,16 @@ const routes = [
       ]
     },
   },
+  {
+    path: "/role_permission_access",
+    component: () => import("../pages/RolePermissionAccess.vue"),
+    meta: {
+      requiresAuth: true,
+      breadcrumb:[
+        {name: 'Role Permission Access'}
+      ]
+    },
+  },
 ];
 
 const router = createRouter({
