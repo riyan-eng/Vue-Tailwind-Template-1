@@ -24,7 +24,7 @@
         <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
             :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
-        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'"
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#4338ca'"
             v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
             :rows-per-page="15">
             <template #item-action="item">
@@ -65,9 +65,9 @@ export default {
         return {
             idItem: null,
             headers: [
+                { text: 'Menu Name', value: "menuName" },
                 { text: 'Permission Name', value: "permissionName" },
-                { text: 'Path', value: "permissionPath" },
-                { text: "Name", value: "accessName" },
+                { text: "Access Name", value: "accessName" },
                 { text: "Status", value: "isActive" },
                 { text: "Action", value: "action" },
 
@@ -83,17 +83,6 @@ export default {
         }
     },
     methods: {
-        async insertOnePermissionAccess(payload) {
-            const { data } = await axios.post("/manajemen/permissionAccess/insertOne", {
-                'accessId': payload.accessId,
-                'permissionId': payload.permissionId
-            }, {
-                headers: {
-                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
-                }
-            })
-            this.findAllMenuPermissionAccess()
-        },
         async findAllMenuPermissionAccess() {
             const { data } = await axios.get("/manajemen/menuPermissionAccess/findAll", {
                 headers: {
@@ -118,13 +107,25 @@ export default {
             })
             this.menus = data.data
         },
+
+        async insertOneMenuPermissionAccess(payload) {
+            const { data } = await axios.post("/manajemen/menuPermissionAccess/insertOne", {
+                'menuId': payload.menuId,
+                'permissionAccessId': payload.permissionAccessId
+            }, {
+                headers: {
+                    "Authorization": `Bearer ${this.$store.getters.user.accessToken}`
+                }
+            })
+            this.findAllMenuPermissionAccess()
+        },
         toggleModalInsertOne() {
             this.findAllMenu()
             this.findAllPermissionAccess()
             this.showModalInsertOne = !this.showModalInsertOne;
         },
         onSubmitInsertOne(payload) {
-            this.insertOnePermissionAccess(payload)
+            this.insertOneMenuPermissionAccess(payload)
             console.log(payload)
         },
         closeModalInsertOne() {

@@ -24,7 +24,7 @@
         <ModalDeleteOne @emtOnDeleteOne="onDeleteOne" @emtCloseModalDeleteOne="closeModalDeleteOne"
             :showModalDeleteOne="showModalDeleteOne" :idItem="idItem" />
         <hr style="border-top: 3px double #8c8b8b" />
-        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#f48225'"
+        <Vue3EasyDataTable table-class-name="customize-table" buttons-pagination show-index :theme-color="'#4338ca'"
             v-model:items-selected="itemsSelected" :headers="headers" :items="items" :rows-items="[15, 25, 50, 100]"
             :rows-per-page="15">
             <template #item-action="item">
