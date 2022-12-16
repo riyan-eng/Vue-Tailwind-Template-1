@@ -65,7 +65,7 @@ export default {
         return {
             idItem: null,
             headers: [
-                { text: 'Menu Name', value: "menuName" },
+                { text: 'Role Name', value: "roleName" },
                 { text: 'Permission Name', value: "permissionName" },
                 { text: "Access Name", value: "accessName" },
                 { text: "Status", value: "isActive" },
